@@ -1,12 +1,20 @@
 #include "js.h" 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 char *createStack(size_t obj, size_t nums) {
 
 	char *stk;
-	stk = malloc(obj * nums);
+	if ((stk = malloc(obj * nums)) == NULL) {
+		perror("malloc err");
+		exit(EXIT_FAILURE);
+	}
 	memset(stk, STACK_SYM, obj * nums);
+	if (*stk != STACK_SYM) {
+		perror("memset err");
+		exit(EXIT_FAILURE);
+	}
 	return stk;	
 
 }
