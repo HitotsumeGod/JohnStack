@@ -2,24 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-int *createStack(size_t obj, size_t nums) {
+char *createStack(size_t obj, size_t nums) {
 
-	int *stk;
+	char *stk;
 	stk = malloc(obj * nums);
-	memset(stk, 0, obj * nums);
+	memset(stk, STACK_SYM, obj * nums);
 	return stk;	
 
 }
 
-int *push(int *stack, int *obj, size_t obj_size) {
+char *push(char *stack, char *obj, size_t obj_size) {
 
 	int inc;
-	int *substack;
+	char *substack;
 	inc = 0;
 	substack = stack;
-	while (*(stack + inc) != 0)	//FIND NEXT AVAILABLE SPOT
+	while (*(stack + inc) != STACK_SYM)	//FIND NEXT AVAILABLE SPOT
 		inc++;
-	if (*(stack + inc + 1) != 0)	//STACK FULL; MUST ALWAYS LEAVE ONE EMPTY SPOT TO SIGNIFY END OF ALLOCATED STACK
+	if (*(stack + inc + 1) != STACK_SYM)	//STACK FULL; MUST ALWAYS LEAVE ONE EMPTY SPOT TO SIGNIFY END OF ALLOCATED STACK
 		return NULL;
 	substack += inc;
 	*substack = *obj;
@@ -27,15 +27,16 @@ int *push(int *stack, int *obj, size_t obj_size) {
 
 }
 
-int pop(int *stack) {
+char pop(char* stack) {
 
-	int inc, result, *iptr;
+	int inc; 
+	char result, *iptr;
 	inc = 0;
-	while (*(stack + inc) != 0)
+	while (*(stack + inc) != STACK_SYM)
 		inc++;
 	iptr = stack + inc - 1;
 	result = *iptr;
-	*iptr = 0;	//REMOVE POPPED ELEMENT
+	*iptr = STACK_SYM;	//REMOVE POPPED ELEMENT
 	return result;
 
 }
